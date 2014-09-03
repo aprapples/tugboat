@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Search Results</h2>
+    {%  if patients %}
+    <table>
+      <tr> <th> Patient ID &nbsp;</th>
+           <th> Name</th>
+           <th> </th>
+	   <th> Medication Name</th>
+	   <th></th>
+	   <th></th></tr>
+           {%  for medications in patients %}
+      <tr> <td> {{medications.patient_id}} </td>
+           <td> {{medications.patient.first_name}} </td>
+           <td> {{medications.patient.last_name}} &nbsp;</td>
+           <td> {{medications.med_class.med_class_name}} &nbsp; </td>
+	   <td> <a href="{% url "med_new" medications.patient.pk %}"> Add &nbsp; </a> </td>
+	   <td> <a href="{% url "med_edit" medications.pk %}"> View/Edit &nbsp;</a> </td>
+	   <td> <a href="{% url "med_delete" medications.pk %}">Delete</a> </td> </tr>	   
+	   {% endfor %}
+    </table>
+
+    {% else %}
+	<p> No patients matched your search criteria.</p>
+    {% endif%}
+
+{% endblock %}

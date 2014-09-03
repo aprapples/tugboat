@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="post">{% csrf_token %}
+	<p> Standard Medication Name*: {{form.med_class}} </p>
+	<p> Dose: {{form.med_dose}} Est.{{form.med_dose_est_flag}} </p>
+        <p> Dose Unit: {{form.dose_unit}}  Dose Frequency:{{form.dose_freq}} </p>
+	<p> PRN.{{form.prn_flag}} </p>
+	<p> Route: {{form.med_route}} </p>
+	<p> Start Date*: {{form.start_date}} Est.{{form.start_date_est_flag}} </p>
+	<p> End Date: {{form.end_date}} Est.{{form.end_date_est_flag}} </p> 
+	<p> Data Source: {{form.data_source}} </p>
+	<p> Prescriber: {{form.med_prescriber}} </p>  
+	    <input type="submit" value="Submit" />
+    </form>
+{% endblock %}
+

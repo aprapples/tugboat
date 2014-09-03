@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<div id="sandbox-container">
+		<input type="text" class="form-control"/>
+    </div>
+    <script>
+    	  $(function(){
+			$('#sandbox-container input').datepicker();  
+		  }); //document ready
+    </script>
+{% endblock %}
+

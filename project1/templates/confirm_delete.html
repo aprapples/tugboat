@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="post">{% csrf_token %}
+        Are you sure you want to delete "{{object.med_class.med_class_name}}" for patient ID {{object.patient.patient_id}}?
+        <input type="submit" value="Delete" />
+    </form>
+{% endblock %}
