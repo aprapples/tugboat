@@ -2,17 +2,22 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import (CreateView, ListView, 
-                                  UpdateView, DeleteView,
-				  DetailView)
+                                  UpdateView, DeleteView)
 from django.core.urlresolvers import reverse_lazy
 
-from .models import Medications, Patient, UploadFile
-from .forms import Medications_Form, UploadFileForm
+from .models import Medications, Patient, UploadFile, content_file_name
+from .forms import MedicationsForm, UploadFileForm
+
+
+### for tests ####
+#class viewform(FormView):
+#    form_class = ExampleModelForm
+#    template_name = 'test.html'
 
 
 ##### file uploader #####
 def handle_uploaded_file(f):
-    with open('/home/splus/Johsin/Django/upload/file_name', 'wb+') as destination:
+    with open('/home/splus/Johsin/Django/upload/content_file_name', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
@@ -25,26 +30,6 @@ def upload_file(request):
     else:
         form = UploadFileForm()
     return render(request, 'upload.html', {'form': form})
-#####
-
-
-##### login page #####
-#def login_view(request):
-#    username = request.POST['username']
-#    password = request.POST['password']
-#    user = authenticate(username=username, password=password)
-#    if user is not None:
-#        if user.is_active:
-#            login(request, user)
-            # Redirect to a success page.
-#        else:
-            # Return a 'disabled account' error message
-#    else:
-        # Return an 'invalid login' error message.
-
-#def logout_view(request):
-#    logout(request)
-    # Redirect to a success page.
 #####
 
 
@@ -69,7 +54,7 @@ class Patient_List(ListView):
 
 
 class Medications_Create(CreateView):
-    form_class = Medications_Form
+    form_class = MedicationsForm
     template_name = 'med_form.html'
     success_url = reverse_lazy('med_list')    
 
@@ -87,7 +72,7 @@ class Medications_List(ListView):
 
 class Medications_Update(UpdateView):
     model = Medications
-    form_class = Medications_Form
+    form_class = MedicationsForm
     template_name='med_form.html'
     success_url = reverse_lazy('med_list')
 
